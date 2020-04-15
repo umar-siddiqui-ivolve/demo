@@ -1,5 +1,4 @@
 import React from 'react';
-import { request } from '@/utils/request';
 import { Link } from 'react-router-dom';
 import { DatePicker, Button, Table, Icon, Spin } from 'antd';
 import moment from 'moment';

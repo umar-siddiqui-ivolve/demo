@@ -101,7 +101,6 @@ export default {
                     type: 'drawer/closeDrawer',
                 });
             }
-            yield put(routerRedux.push('/service/network/networks'));
         },
 
         *updatePort({ payload }, { call, put }) {

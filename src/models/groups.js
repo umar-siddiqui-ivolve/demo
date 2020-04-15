@@ -9,6 +9,7 @@ export default {
         calledBefore: false,
         selectedRows: [],
         currentGroup: null,
+        loading: [],
     },
     subscriptions: {
         setup({ dispatch, history }) {
@@ -157,6 +158,11 @@ export default {
         },
 
         *removeUserFromGroup({ payload }, { call, put, select }) {
+            yield put({
+                type: 'updateLoadingState',
+                payload: { id: payload.id, type: 'add' },
+            });
+
             const data = yield call(GenericService.create, {
                 data: { ...payload },
                 method: 'IAM.remove_user_from_group',
@@ -186,6 +192,10 @@ export default {
                     },
                 });
             }
+            yield put({
+                type: 'updateLoadingState',
+                payload: { id: payload.id, type: 'remove' },
+            });
         },
 
         *addUserToGroup({ payload }, { call, put, select }) {
@@ -238,6 +248,15 @@ export default {
         },
     },
     reducers: {
+        updateLoadingState(state, action) {
+            return {
+                ...state,
+                loading:
+                    action.payload.type === 'add'
+                        ? [...state.loading, action.payload.id]
+                        : state.loading.filter(id => id !== action.payload.id),
+            };
+        },
         addRoleAssignment(state, action) {
             const appendDataObject = {
                 [action.payload.appendData.type]:

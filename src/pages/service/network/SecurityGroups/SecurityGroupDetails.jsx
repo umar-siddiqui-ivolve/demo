@@ -268,7 +268,7 @@ class SecurityGroupDetails extends React.Component {
             };
         });
         return (
-            <div style={{ padding: `30px` }}>
+            <div style={{ padding: `30px` ,cursor:'default'}}>
                 <div style={{ marginBottom: `20px`, textAlign: `right` }}>
                     <Row>
                         <Col lg={12} push={9}>

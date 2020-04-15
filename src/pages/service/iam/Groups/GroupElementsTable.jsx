@@ -20,7 +20,6 @@ import { Link } from 'umi';
 class GroupElementsTable extends React.Component {
     constructor(props) {
         super(props);
-        this.onRow = this.onRow.bind(this);
         this.onSelectClick = this.onSelectClick.bind(this);
         this.onSelectAll = this.onSelectAll.bind(this);
 
@@ -52,30 +51,6 @@ class GroupElementsTable extends React.Component {
                     width: 150,
                 },
             ],
-        };
-    }
-
-    onRow(record, rowIndex) {
-        const { dispatch } = this.props;
-        return {
-            onClick(e) {
-                e.preventDefault();
-
-                if (e.target.innerHTML !== record.name.name) {
-                    dispatch({
-                        type: 'groups/selectedRows',
-                        payload: [
-                            {
-                                ...record,
-                            },
-                        ],
-                    });
-                }
-            },
-            onDoubleClick: event => {},
-            onContextMenu: event => {},
-            onMouseEnter: event => {},
-            onMouseLeave: event => {},
         };
     }
 
@@ -131,7 +106,6 @@ class GroupElementsTable extends React.Component {
                     columns={this.state.columns}
                     dataSource={data}
                     pagination={{ pageSize: 10 }}
-                    onRow={this.onRow}
                     rowSelection={{ ...rowSelection }}
                 />
             </div>

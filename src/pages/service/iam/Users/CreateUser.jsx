@@ -10,6 +10,7 @@ import {
     Icon,
     InputNumber,
     Typography,
+    Checkbox,
     Spin,
     message,
 } from 'antd';
@@ -34,6 +35,7 @@ class CreateUser extends React.Component {
     constructor() {
         super();
         this.state = {
+            trialAccount: false,
             confirmDirty: false,
             generatedPassword: '',
         };
@@ -51,6 +53,9 @@ class CreateUser extends React.Component {
         }
     };
 
+    trialCheckbox = e => {
+        this.setState({ trialAccount: e.target.checked });
+    };
     handleSubmit = e => {
         e.preventDefault();
         this.props.form.validateFields((err, values) => {
@@ -59,7 +64,10 @@ class CreateUser extends React.Component {
 
                 this.props.dispatch({
                     type: 'users/create',
-                    payload: values,
+                    payload: {
+                        ...values,
+                        trialAccount: this.state.trialAccount,
+                    },
                 });
             }
         });
@@ -145,7 +153,7 @@ class CreateUser extends React.Component {
     }
     render() {
         const { getFieldDecorator } = this.props.form;
-
+        console.log('trialAccount = ', this.state.trialAccount);
         return (
             <div
                 style={{
@@ -473,8 +481,6 @@ class CreateUser extends React.Component {
                         </Col>
                     </Row>
 
-                    <Row gutter={16}></Row>
-
                     <Row gutter={16}>
                         <Col span={9}>
                             <Typography.Title
@@ -524,9 +530,7 @@ class CreateUser extends React.Component {
                                 )}
                             </Form.Item>
                         </Col>
-                    </Row>
 
-                    <Row gutter={16}>
                         <Col span={9}>
                             <Typography.Title
                                 level={4}
@@ -574,8 +578,24 @@ class CreateUser extends React.Component {
                             </Form.Item>
                         </Col>
                     </Row>
-
+                    <Row gutter={16}>
+                        <Col span={9}>
+                            <Checkbox
+                                checked={this.state.trialAccount}
+                                onChange={this.trialCheckbox}
+                            >
+                                Trial Account{' '}
+                                {!this.state.trialAccount ? (
+                                    <Typography style={{ color: '#06597F' }}>
+                                        Once Permanent User has been created, it
+                                        cannot be convert into trial user
+                                    </Typography>
+                                ) : null}
+                            </Checkbox>
+                        </Col>
+                    </Row>
                     <Button
+                        style={{ marginTop: '30px' }}
                         loading={this.props.creatingUser}
                         type="primary"
                         htmlType="submit"

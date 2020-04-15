@@ -284,7 +284,6 @@ class PortDetailPanel extends React.Component {
                                                             .updatePortState
                                                     }
                                                     type="danger"
-                                                    style={{ color: `#ff4d4f` }}
                                                     onClick={this.detachPort.bind(
                                                         this,
                                                         sg.id,
@@ -370,13 +369,6 @@ class PortDetailPanel extends React.Component {
                                                                         .methodType !==
                                                                         'detach'
                                                                 }
-                                                                type="link"
-                                                                style={{
-                                                                    paddingLeft:
-                                                                        '10px',
-                                                                    color:
-                                                                        '#ff4d4f',
-                                                                }}
                                                                 onClick={this.cancelSecurityGroup.bind(
                                                                     this
                                                                 )}

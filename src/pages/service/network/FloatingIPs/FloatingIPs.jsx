@@ -2,7 +2,6 @@ import React, { PureComponent } from 'react';
 import FloatingIPElementsTable from './FloatingIPElementsTable';
 import FloatingIPButtons from './FloatingIPButtons';
 import { Row, Col, Button, Typography } from 'antd';
-import { RedoOutlined } from '@ant-design/icons';
 import AllDrawer from './FloatingIPDrawer';
 import { connect } from 'dva';
 const ButtonGroup = Button.Group;
@@ -37,7 +36,7 @@ class FloatingIP extends PureComponent {
                                             float: 'right',
                                             marginBottom: '10px',
                                         }}
-                                        icon={<RedoOutlined />}
+                                        icon='redo'
                                         onClick={() => {
                                             this.props.dispatch({
                                                 type: 'floatingip/update',

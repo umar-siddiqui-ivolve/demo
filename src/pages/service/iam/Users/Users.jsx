@@ -3,7 +3,6 @@ import React, { PureComponent } from 'react';
 import UserElementsTable from './UserElementsTable';
 import UserButtons from './UserButtons';
 import { Row, Col, Button, Typography } from 'antd';
-import { RedoOutlined } from '@ant-design/icons';
 import AllDrawer from './UserDrawer';
 import { connect } from 'dva';
 import { Select } from 'antd';
@@ -44,7 +43,7 @@ class Users extends PureComponent {
                                 <ButtonGroup>
                                     <Button
                                         style={{ float: 'right' }}
-                                        icon={<RedoOutlined />}
+                                        icon='redo'
                                         onClick={() => {
                                             this.props.dispatch({
                                                 type: 'users/update',

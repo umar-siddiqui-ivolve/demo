@@ -2,7 +2,6 @@ import * as GenericService from '@/pages/service/services/generic_service';
 import { routerRedux } from 'dva/router';
 import { Button, notification, message } from 'antd';
 import { getPageQuery } from '@/utils/utils';
-import request from 'umi-request';
 
 const statusCodeAndType = {
     success: (vm, status) => {

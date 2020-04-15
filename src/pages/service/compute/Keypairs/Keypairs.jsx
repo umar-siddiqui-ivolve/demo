@@ -2,7 +2,6 @@ import React, { PureComponent } from 'react';
 import { Button, Typography, Row, Col, Input } from 'antd';
 import KeypairElementsTable from './KeypairElementsTable';
 import KeypairButtons from './KeypairButtons';
-import { RedoOutlined } from '@ant-design/icons';
 
 import { connect } from 'dva';
 const ButtonGroup = Button.Group;
@@ -35,7 +34,7 @@ class KeyPairs extends PureComponent {
                                 <ButtonGroup>
                                     <Button
                                         style={{ float: 'right' }}
-                                        icon={<RedoOutlined />}
+                                        icon="redo"
                                         onClick={() => {
                                             this.props.dispatch({
                                                 type: 'keypair/update',

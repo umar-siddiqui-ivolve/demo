@@ -3,7 +3,6 @@ import { Button, Row, Col, Typography } from 'antd';
 import FlavorElementsTable from './FlavorElementsTable';
 import FlavorButtons from './FlavorButtons';
 import CardList from '@/components/CardList';
-import { RedoOutlined } from '@ant-design/icons';
 
 import { connect } from 'dva';
 
@@ -33,7 +32,7 @@ class Flavors extends PureComponent {
                                             float: 'right',
                                             marginBottom: '10px',
                                         }}
-                                        icon={<RedoOutlined />}
+                                        icon="redo"
                                         onClick={() => {
                                             this.props.dispatch({
                                                 type: 'flavor/update',

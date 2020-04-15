@@ -4,24 +4,22 @@ import { notification } from 'antd';
 const codeMessage = {
     200: 'The server successfully returned the requested data.',
     201: 'New or modified data is successful',
-    202: '一个请求已经进入后台排队（异步任务）。',
-    204: '删除数据成功。',
+    202: 'Request Accepted',
+    204: 'No Content',
     400: 'Bad request',
     401: 'You do not have permission to proceed further (username or password is incorrect)',
-    403: '用户得到授权，但是访问是被禁止的。',
+    403: 'Forbidden',
     404: "The requests is made for a record that doesn't exist",
-    406: '请求的格式不可得。',
-    410: '请求的资源被永久删除，且不会再得到的。',
-    422: '当创建一个对象时，发生一个验证错误。',
+    406: 'Not Acceptable',
+    410: 'Gone',
+    422: 'Unprocessable Entity (WebDAV)',
     500: 'An error occurred on the server. Please check the server.',
-    502: '网关错误。',
-    503: '服务不可用，服务器暂时过载或维护。',
+    502: 'Bad Gateway',
+    503: 'Service Unavailable',
     504: 'The gateway timed out',
 };
 
 const errorHandler = error => {
-    console.log('error', error);
-
     try {
         if (error.data.message && error.response.status) {
             if (
@@ -39,7 +37,6 @@ const errorHandler = error => {
             });
         }
     } catch (error) {
-        console.log('error', error);
         notification.error({
             message: 'Oh Snap!',
             description: 'Something went wrong, try again later',

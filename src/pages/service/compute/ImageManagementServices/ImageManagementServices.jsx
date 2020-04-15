@@ -1,6 +1,5 @@
 import React, { PureComponent } from 'react';
 import { Row, Col, Button, Typography } from 'antd';
-import { RedoOutlined } from '@ant-design/icons';
 import IMSElementsTable from './IMSElementsTable';
 import IMSButtons from './IMSButtons';
 
@@ -39,10 +38,10 @@ class ImageManagementServices extends PureComponent {
                                 <ButtonGroup>
                                     <Button
                                         style={{ float: 'right' }}
-                                        icon={<RedoOutlined />}
+                                        icon="redo"
                                         onClick={() => {
                                             this.props.dispatch({
-                                                type: 'ims/update',
+                                                type: 'ims/fetchList',
                                                 payload: {
                                                     method: 'Image.list',
                                                     force: true,
@@ -78,6 +77,6 @@ class ImageManagementServices extends PureComponent {
 export default connect(state => {
     return {
         imageList: state.ims,
-        fetchingImageList: state.loading.effects['ims/update'],
+        fetchingImageList: state.loading.effects['ims/fetchList'],
     };
 })(ImageManagementServices);

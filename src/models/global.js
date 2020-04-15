@@ -49,7 +49,7 @@ const GlobalModel = {
             });
 
             yield put.resolve({
-                type: 'ims/update',
+                type: 'ims/fetchList',
             });
 
             yield put.resolve({

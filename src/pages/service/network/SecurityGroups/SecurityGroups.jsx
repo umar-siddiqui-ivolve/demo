@@ -1,6 +1,5 @@
 import React, { PureComponent } from 'react';
 import { Row,Col,Button,Typography } from 'antd';
-import { RedoOutlined } from '@ant-design/icons';
 import SecurityGroupElementsTable from './SecurityGroupElementsTable';
 import SecurityGroupButtons from './SecurityGroupButtons';
 
@@ -29,7 +28,7 @@ class SecurityGroups extends PureComponent {
                 <ButtonGroup>
                   <Button
                     style={{ float: 'right', marginBottom: '10px' }}
-                    icon={<RedoOutlined />}
+                    icon='redo'
                     onClick={() => {
                       this.props.dispatch({
                         type: 'securitygroup/update',

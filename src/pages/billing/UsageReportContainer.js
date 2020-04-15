@@ -178,14 +178,10 @@ class UsageReportContainer extends Component {
                         </Dropdown>
                     </Col>
 
-                    <Col span={2} style={{ float: 'right' }}>
+                    <Col span={12}>
                         <Button
-                            loading={this.props.fetchUsage}
-                            style={{
-                                backgroundColor: '#f3f6f9',
-                                marginLeft: -11,
-                            }}
-                            icon={<RedoOutlined />}
+                            style={{ float: 'right' }}
+                            icon="redo"
                             onClick={() => this.searchReport()}
                             disabled={!this.state.from || !this.state.to}
                         >
@@ -206,7 +202,6 @@ const mapStateToProps = state => {
     const { usageReport } = state.report;
     return {
         usageReport,
-        fetchUsage: state.loading.effects['report/usageReportForInstances'],
     };
 };
 

@@ -2,7 +2,6 @@ import React, { PureComponent } from 'react';
 import TenantElementsTable from './TenantElementsTable';
 import TenantButtons from './TenantButtons';
 import { Row, Col, Button, Typography } from 'antd';
-import { RedoOutlined } from '@ant-design/icons';
 import AllDrawer from './TenantDrawer';
 import { connect } from 'dva';
 const ButtonGroup = Button.Group;
@@ -35,7 +34,7 @@ class Tenant extends PureComponent {
                                 <ButtonGroup>
                                     <Button
                                         style={{ float: 'right' }}
-                                        icon={<RedoOutlined />}
+                                        icon='redo'
                                         onClick={() => {
                                             this.props.dispatch({
                                                 type: 'projects/update',

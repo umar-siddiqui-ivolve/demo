@@ -93,7 +93,7 @@ class CreateECS extends PureComponent {
         });
 
         dispatch({
-            type: 'ims/update',
+            type: 'ims/fetchList',
         });
 
         dispatch({
@@ -247,7 +247,7 @@ export default connect(
                 loading.effects['global/fetchDbmsMetadata'],
             'Fetching Regions': loading.effects['global/fetchRegions'],
             'Fetching Networks': loading.effects['vpc/update'],
-            'Fetching Images': loading.effects['ims/update'],
+            'Fetching Images': loading.effects['ims/fetchList'],
             'Fetching Keypairs': loading.effects['keypair/update'],
             'Fetching Security Groups': loading.effects['securitygroup/update'],
             'Fetching Elastic Ips': loading.effects['floatingip/update'],

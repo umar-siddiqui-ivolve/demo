@@ -69,10 +69,7 @@ export const initialFormData = {
         },
     },
     Fifth: {
-        metadata: {
-            value: {},
-            name: 'metadata',
-        },
+        metadata: {},
     },
 };
 

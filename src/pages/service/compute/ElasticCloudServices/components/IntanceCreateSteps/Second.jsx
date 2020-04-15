@@ -21,39 +21,52 @@ import { timingSafeEqual } from 'crypto';
 import { getPageQuery } from '../../../../../../utils/utils';
 import { Console } from '@/services/logging';
 import { initialFormData } from '@/models/createECS';
-import request from 'umi-request';
 
 const { Option } = Select;
-const marks = {
-    50: '50',
-    100: '100',
-    150: '150',
-    200: '200',
-    250: '250',
-    300: '300',
-    350: '350',
-    400: '400',
-    450: '450',
-    500: '500',
-};
+const DEFAULT_MIN_DISK = 50;
 
 class Second extends PureComponent {
     constructor(props) {
         super(props);
 
         this.state = {
-            minVal: 50,
-            maxVal: 500,
+            minVal: undefined,
+            maxVal: undefined,
             inputValue: '',
             choice: '',
             disabled: false,
             billingmode: 'on_demand',
+            marks: {},
             filteredFlavor: [],
             clearFilters: false,
         };
         this.handleChange = this.handleChange.bind(this);
         this.getFlavorBill = this.getFlavorBill.bind(this);
         this.setMode = this.setMode.bind(this);
+        this.setMarksForDiskSpace = this.setMarksForDiskSpace.bind(this);
+    }
+
+    setMarksForDiskSpace(minDiskForImage = DEFAULT_MIN_DISK) {
+        const marks = {};
+        minDiskForImage =
+            minDiskForImage > 0 ? minDiskForImage : DEFAULT_MIN_DISK;
+        if (minDiskForImage === this.state.minVal) {
+            return;
+        }
+        for (let i = 1; i <= 10; i++) {
+            const mark = minDiskForImage * i;
+            marks[mark] = mark.toString();
+        }
+
+        this.setState({
+            minVal: minDiskForImage,
+            maxVal: minDiskForImage * 10,
+            marks,
+        });
+
+        this.props.form.setFieldsValue({
+            disk_size: minDiskForImage,
+        });
     }
 
     componentDidMount() {
@@ -63,6 +76,8 @@ class Second extends PureComponent {
         if (imageId) {
             this.setState({ imageId });
         }
+
+        this.setMarksForDiskSpace();
 
         this.setDiskSize(this.state.inputValue);
         const result = {
@@ -88,7 +103,21 @@ class Second extends PureComponent {
 
     componentDidUpdate(prevProps, prevState) {
         const { billingmode } = this.state;
-        const { formsData, dispatch } = this.props;
+        const { formsData, dispatch, helperData } = this.props;
+
+        if (
+            prevProps.formsData.Second.image_id.value !==
+            formsData.Second.image_id.value
+        ) {
+            let minDiskSpace = DEFAULT_MIN_DISK;
+            if (formsData.Second.image_id.value) {
+                const minDiskForCurrentImage = helperData.ims.find(
+                    image => image.id === formsData.Second.image_id.value
+                );
+                minDiskSpace = minDiskForCurrentImage.min_disk;
+            }
+            this.setMarksForDiskSpace(minDiskSpace);
+        }
         if (
             prevProps.formsData.Second.flavor_id.value !==
                 formsData.Second.flavor_id.value ||
@@ -311,7 +340,7 @@ class Second extends PureComponent {
     }
 
     render() {
-        const { imageId } = this.state;
+        const { imageId, marks } = this.state;
         const { billingmode } = this.props;
         let { inputValue, disabled } = this.state;
         const filteredImage = Object.keys(this.props.formsData).includes(
@@ -460,7 +489,16 @@ class Second extends PureComponent {
                         <FormRow
                             style={{ marginBottom: `28px` }}
                             field={
-                                <Select size="default">
+                                <Select
+                                    size="default"
+                                    showSearch
+                                    optionFilterProp="name"
+                                    filterOption={(input, option) =>
+                                        option.props.children
+                                            .toLowerCase()
+                                            .indexOf(input.toLowerCase()) >= 0
+                                    }
+                                >
                                     {this.state?.filteredFlavor.map(item => {
                                         return (
                                             <Option
@@ -484,7 +522,16 @@ class Second extends PureComponent {
                         <FormRow
                             style={{ marginBottom: `28px` }}
                             field={
-                                <Select size="default">
+                                <Select
+                                    size="default"
+                                    showSearch
+                                    optionFilterProp="name"
+                                    filterOption={(input, option) =>
+                                        option.props.children
+                                            .toLowerCase()
+                                            .indexOf(input.toLowerCase()) >= 0
+                                    }
+                                >
                                     {this.props.helperData.evs.volumeTypes.map(
                                         item => (
                                             <Option

@@ -19,7 +19,6 @@ import { Link } from 'umi';
 class TenantElementsTable extends React.Component {
     constructor(props) {
         super(props);
-        this.onRow = this.onRow.bind(this);
         this.onSelectClick = this.onSelectClick.bind(this);
         this.onSelectAll = this.onSelectAll.bind(this);
 
@@ -68,27 +67,6 @@ class TenantElementsTable extends React.Component {
 
             data: [],
             hasData: true,
-        };
-    }
-
-    onRow(record, rowIndex) {
-        const { dispatch } = this.props;
-        return {
-            onClick(e) {
-                e.preventDefault();
-                dispatch({
-                    type: 'projects/selectedRows',
-                    payload: [
-                        {
-                            ...record,
-                        },
-                    ],
-                });
-            },
-            onDoubleClick: event => {},
-            onContextMenu: event => {},
-            onMouseEnter: event => {},
-            onMouseLeave: event => {},
         };
     }
 
@@ -143,7 +121,6 @@ class TenantElementsTable extends React.Component {
                     columns={this.state.columns}
                     dataSource={data}
                     pagination={{ pageSize: 10 }}
-                    onRow={this.onRow}
                     rowSelection={{ ...rowSelection }}
                 />
             </div>

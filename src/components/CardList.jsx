@@ -42,13 +42,15 @@ class CardList extends Component {
         return (
             <List
                 loading={this.props.loading}
-                grid={{ gutter: 30, column: 3 }}
+                grid={{ gutter: 50, column: 3 }}
                 dataSource={flavorData}
                 renderItem={item => (
                     <List.Item>
                         <Card
                             hoverable
                             style={{
+                                height: '180px',
+                                width: '300px',
                                 borderRadius: `7px`,
                                 backgroundColor: '#f7f7f7',
                             }}
@@ -61,8 +63,8 @@ class CardList extends Component {
                                     <Col span={12}>
                                         <Typography.Title
                                             style={{
-                                                fontSize: '0.9em',
-                                                paddingRight: '100px',
+                                                fontSize: '0.8em',
+                                                paddingRight: '10px',
                                             }}
                                         >
                                             {item.name}
@@ -72,6 +74,7 @@ class CardList extends Component {
                                     <Col span={12}>
                                         <Statistic
                                             valueStyle={{
+                                                paddingLeft: '10px',
                                                 fontSize: '0.9em',
                                                 fontWeight: '100',
                                             }}
@@ -84,8 +87,8 @@ class CardList extends Component {
                                     <Col span={12}>
                                         <Statistic
                                             style={{
-                                                paddingRight: '40px',
-                                                paddingTop: '20px',
+                                                paddingRight: '20px',
+                                                paddingTop: '30px',
                                             }}
                                             valueStyle={{
                                                 fontSize: '1.1em',
@@ -106,12 +109,12 @@ class CardList extends Component {
                                     <Col span={12}>
                                         <Statistic
                                             style={{
-                                                paddingRight: '40px',
-                                                paddingTop: '20px',
+                                                paddingRight: '20px',
+                                                paddingTop: '30px',
                                             }}
                                             valueStyle={{
                                                 fontSize: '1.1em',
-                                                fontWeight: '100',
+                                                fontWeight: '60',
                                                 marginLeft: '0px',
                                             }}
                                             title="RAM"

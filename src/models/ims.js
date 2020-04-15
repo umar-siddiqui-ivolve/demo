@@ -1,6 +1,7 @@
 import * as IMSServices from '../pages/service/compute/ImageManagementServices/services/ims';
 import * as GenericService from '@/pages/service/services/generic_service';
 import { routerRedux } from 'dva/router';
+import { notification } from 'antd';
 
 export default {
     namespace: 'ims',
@@ -21,7 +22,7 @@ export default {
                         '/service/storage/elastic-volume-services/create'
                 ) {
                     dispatch({
-                        type: 'update',
+                        type: 'fetchList',
                         payload: { method: 'Image.list' },
                     });
                 }
@@ -29,14 +30,6 @@ export default {
         },
     },
     effects: {
-        *fetch({ payload }, { call, put }) {
-            yield put({
-                type: 'save',
-                payload: {
-                    text: 'page init',
-                },
-            });
-        },
         *delete({ payload }, { call, put }) {
             yield put({
                 type: 'save',
@@ -57,6 +50,8 @@ export default {
                 });
             }
         },
+
+        // create: It doesn't work
         *create({ payload }, { call, put }) {
             const data = yield call(IMSServices.create, {
                 data: { ...payload },
@@ -76,7 +71,28 @@ export default {
             }
         },
 
-        *update({ payload }, { call, put, select }) {
+        *updateImage({ payload }, { call, put, select }) {
+            const responseData = yield call(GenericService.patch, {
+                data: payload,
+                method: 'Image.update_image',
+            });
+            if (responseData) {
+                const imsList = yield select(state => state.ims);
+                if (responseData.statusCode === 200) {
+                    notification.success({
+                        message: `Update Image`,
+                        description: `${responseData.body.name} image has been updated successfully`,
+                    });
+                }
+                yield put({
+                    type: 'updateSingle',
+                    payload: {
+                        ...responseData.body,
+                    },
+                });
+            }
+        },
+        *fetchList({ payload }, { call, put, select }) {
             const calledBefore = yield select(state => state.ims.calledBefore);
             const force = payload?.force;
             if (!calledBefore || force) {
@@ -143,6 +159,12 @@ export default {
         },
         saveSingle(state, action) {
             return { ...state, list: [...state.list, { ...action.payload }] };
+        },
+        updateSingle(state, action) {
+            const stateList = state.list.filter(function(obj) {
+                return obj.id !== action.payload.id;
+            });
+            return { ...state, list: [...stateList, { ...action.payload }] };
         },
     },
 };

@@ -1,6 +1,3 @@
-//
-
-import { request } from '@/utils/request';
 import { requestHandler } from '@/utils/request';
 import { stringify } from 'qs';
 import apiGatewayConfig from '@/utils/apiGatewayConfig';

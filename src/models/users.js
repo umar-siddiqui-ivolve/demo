@@ -1,6 +1,7 @@
 import * as GenericService from '@/pages/service/services/generic_service';
 import { routerRedux } from 'dva/router';
 import { notification, message } from 'antd';
+import { func } from 'prop-types';
 
 export default {
     namespace: 'users',
@@ -157,12 +158,17 @@ export default {
             });
             if (data) {
                 yield put({
-                    type: 'saveSingle',
+                    type: 'updateSingle',
                     payload: {
                         ...data.body,
                     },
                 });
-                yield put(routerRedux.push('/service/iam/users'));
+                yield put({
+                    type: 'drawer/closeDrawer',
+                });
+
+                message.success(`User ${data.body.name} has been updated.`);
+                // yield put(routerRedux.push('/service/iam/users'));
             }
         },
         *confirmChangePassword({ payload }, { call }) {
@@ -170,11 +176,23 @@ export default {
                 data: { ...payload },
                 method: 'IAM.changepassword',
             });
-            if (data.body === 204 || data.body === 200) {
+
+            if (data.body === 204) {
                 notification.success({
-                    message: 'Your password has been changed successfully',
-                    description: ``,
+                    message: 'Change password successfully',
+                    description: `Your password has been changed and please again login`,
                 });
+                cpSuccessRoute();
+                async function cpSuccessRoute() {
+                    let promise = new Promise((resolve, reject) => {
+                        setTimeout(() => resolve('/login'), 5000);
+                    });
+
+                    let loginRoute = await promise;
+                    let loginRoute1 = window.location.assign(loginRoute);
+
+                    return loginRoute1;
+                }
             } else {
                 notification.error({
                     message: 'Change password failed',
@@ -410,6 +428,13 @@ export default {
 
         saveDomains(state, action) {
             return { ...state, ...action.payload };
+        },
+
+        updateSingle(state, action) {
+            var filteredList = state.list.map(item =>
+                item.id === action.payload.id ? action.payload : item
+            );
+            return { ...state, list: filteredList };
         },
 
         saveSingle(state, action) {

@@ -57,13 +57,21 @@ export default {
         prefix: `${baseUrl}security`,
         headers: () => serviceHeaders(),
     },
-
+    trialAccount: {
+        prefix: `${baseUrl}trialAccount`,
+        headers: () => serviceHeaders(),
+    },
     'support-Emailer': {
         prefix: `${baseUrl}support-Emailer`,
     },
 
     pricing: {
         prefix: `${baseUrl}pricing`,
+        headers: () => serviceHeaders(),
+    },
+
+    images: {
+        prefix: `${baseUrl}images`,
         headers: () => serviceHeaders(),
     },
 

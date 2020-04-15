@@ -19,7 +19,6 @@ const { Option } = Select;
 class CreateRole extends React.Component {
     handleSubmit = e => {
         e.preventDefault();
-        debugger
         this.props.form.validateFields((err, values) => {
             if (!err) {
                 const { keys, names } = values;
@@ -37,7 +36,7 @@ class CreateRole extends React.Component {
 
         getFieldDecorator('keys', { initialValue: [] });
         const keys = getFieldValue('keys');
-   
+
         return (
             <div
                 style={{
@@ -49,7 +48,7 @@ class CreateRole extends React.Component {
                 <Form hideRequiredMark onSubmit={this.handleSubmit}>
                     <Row style={{ paddingTop: '10px' }} gutter={16}>
                         <Col span={24}>
-                        <Typography.Title
+                            <Typography.Title
                                 level={4}
                                 style={{
                                     fontSize: ` 1.2em`,
@@ -68,7 +67,7 @@ class CreateRole extends React.Component {
                                     marginBottom: `0.3em`,
                                 }}
                             ></Typography.Paragraph>
-                        <Form.Item>
+                            <Form.Item>
                                 {getFieldDecorator('name', {
                                     rules: [
                                         {
@@ -128,7 +127,7 @@ class CreateRole extends React.Component {
 
                     <Form.Item>
                         <Button
-                        loading={this.props.creatingRole}
+                            loading={this.props.creatingRole}
                             type="primary"
                             htmlType="submit"
                         >
@@ -141,9 +140,9 @@ class CreateRole extends React.Component {
     }
 }
 
-export default connect(state=>{
+export default connect(state => {
     return {
         roles: state.roles,
         creatingRole: state.loading.effects['roles/create'],
-    }
+    };
 })(Form.create()(CreateRole));

@@ -3,7 +3,6 @@ import React, { PureComponent } from 'react';
 import GroupElementsTable from './GroupElementsTable';
 import GroupButtons from './GroupButtons';
 import { Row, Col, Button, Typography } from 'antd';
-import { RedoOutlined } from '@ant-design/icons';
 import AllDrawer from './GroupDrawer';
 import { connect } from 'dva';
 const ButtonGroup = Button.Group;
@@ -36,7 +35,7 @@ class Groups extends PureComponent {
                                 <ButtonGroup>
                                     <Button
                                         style={{ float: 'right' }}
-                                        icon={<RedoOutlined />}
+                                        icon='redo'
                                         onClick={() => {
                                             this.props.dispatch({
                                                 type: 'groups/update',

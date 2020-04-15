@@ -67,18 +67,6 @@ class Fifth extends PureComponent {
             type: 'createECS/deleteMetaData',
             payload: update_metadata,
         });
-        // this.setState(
-        //     {
-        //         dataSource: dataSource.filter(item => item.key !== key),
-        //     },
-        //     () => {
-        //         console.log('aa', this.state.dataSource);
-        //         dispatch({
-        //             type: 'createECS/setMetaData',
-        //             payload: dataSource,
-        //         });
-        //     }
-        // );
     }
     handleFirstChoice(value) {
         this.setState({
@@ -126,21 +114,6 @@ class Fifth extends PureComponent {
                         counter: this.props.count + 1,
                     },
                 });
-
-                // this.setState(
-                //     {
-                //         dataSource: [...dataSource, newData],
-                //         count: count + 1,
-                //     },
-
-                //     () => {
-                //         console.log('aa', this.state.dataSource);
-                //         dispatch({
-                //             type: 'createECS/setMetaData',
-                //             payload: this.state.dataSource,
-                //         });
-                //     }
-                // );
             }
         });
     }
@@ -450,7 +423,6 @@ class Fifth extends PureComponent {
                                     ></Empty>
                                 ),
                             }}
-                            // style={{ height: '1000px' }}
                         />
                     </Col>
                 </Row>

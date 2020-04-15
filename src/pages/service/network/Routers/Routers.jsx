@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react';
 import { Row,Col,Button,Typography } from 'antd';
 import { RedoOutlined } from '@ant-design/icons';
 import RouterElementsTable from './RouterElementsTable';
-import RouterButtons from './RouterButtons';
+
 
 import AllDrawer from './RouterDrawer';
 import { connect } from 'dva';
@@ -29,7 +29,7 @@ class Routers extends PureComponent {
                 <ButtonGroup>
                   <Button
                     style={{ float: 'right', marginBottom: '10px' }}
-                    icon={<RedoOutlined />}
+                    icon='redo'
                     onClick={() => {
                       this.props.dispatch({
                         type: 'router/update',

@@ -1,7 +1,6 @@
 import React, { PureComponent } from 'react';
 import { Table, Spin, Icon } from 'antd';
 import RateTree from './components/RateTree';
-import { request } from '@/utils/request';
 import { connect } from 'dva';
 const antIcon = <Icon type="loading" style={{ fontSize: 34 }} spin />;
 

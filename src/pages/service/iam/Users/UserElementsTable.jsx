@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link, Redirect } from 'umi';
 import {
     Table,
     Icon,
@@ -49,6 +50,15 @@ class UserElementsTable extends React.Component {
                     dataIndex: 'name',
                     key: 'name',
                     width: 150,
+                    render: text => {
+                        return (
+                            <Link
+                                to={`/service/iam/users/show-user?id=${text[1]}`}
+                            >
+                                {text[0]}
+                            </Link>
+                        );
+                    },
                 },
                 {
                     title: 'Email',
@@ -72,6 +82,12 @@ class UserElementsTable extends React.Component {
                     title: 'Enabled',
                     dataIndex: 'is_enabled',
                     key: 'is_enabled',
+                    width: 150,
+                },
+                {
+                    title: 'Account Type',
+                    dataIndex: 'account_type',
+                    key: 'account_type',
                     width: 150,
                 },
                 {
@@ -99,6 +115,12 @@ class UserElementsTable extends React.Component {
                             />
                         </Popconfirm>
                     ),
+                },
+                {
+                    title: 'Actions',
+                    dataIndex: 'actions',
+                    key: 'actions',
+                    width: 150,
                 },
             ],
 
@@ -174,6 +196,18 @@ class UserElementsTable extends React.Component {
         });
     }
 
+    updateUser(updateUserDetail, status) {
+        this.props.dispatch({
+            type: 'drawer/showDrawer',
+            payload: {
+                componentPath: `iam/Users/UpdateUser`,
+                mountedData: {
+                    drawerName: `Update User ${updateUserDetail.name}`,
+                    ...updateUserDetail,
+                },
+            },
+        });
+    }
     render() {
         const rowSelection = {
             selectedRowKeys: this.props.selectedRowKeys,
@@ -187,8 +221,13 @@ class UserElementsTable extends React.Component {
             return {
                 key: listItem['id'],
                 id: listItem['id'],
-                name: listItem['name'],
+                name: [listItem['name'], listItem['id']],
                 email: listItem['email'],
+                account_type:
+                    listItem['description'] !== 'trial' &&
+                    listItem['description'] !== 'suspended'
+                        ? 'permanent'
+                        : listItem['description'],
                 is_enabled: listItem['is_enabled']
                     ? 'Yes'
                     : listItem['enabled']
@@ -203,6 +242,19 @@ class UserElementsTable extends React.Component {
                           listItem['name'],
                       ]
                     : [false, listItem['id'], listItem['name']],
+                actions: (
+                    <Button
+                        type="primary"
+                        style={{
+                            marginRight: `20px`,
+                            fontFamily: `Open Sans`,
+                            fontWeight: `600`,
+                        }}
+                        onClick={() => this.updateUser(listItem)}
+                    >
+                        Update User
+                    </Button>
+                ),
             };
         });
 

@@ -22,7 +22,6 @@ import { connect } from 'dva';
 import FormRow from '@/pages/service/components/FormRow';
 import PricingStrip from '../../compute/ElasticCloudServices/components/PricingStrip';
 const { Header, Footer, Sider, Content } = Layout;
-import request from 'umi-request';
 
 const { Option } = Select;
 const marks = {

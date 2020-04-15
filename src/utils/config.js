@@ -5,7 +5,7 @@ export default {
         ecs: `/instances_list`,
         flavor: `/flavor`,
         keypair: `/keypair`,
-        ims: `/image`,
+        ims: `/images`,
         vpc: `/network`,
         router: `/router`,
         securitygroup: `/security_group`,

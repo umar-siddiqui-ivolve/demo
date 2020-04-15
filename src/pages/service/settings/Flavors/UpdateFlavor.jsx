@@ -16,7 +16,6 @@ import {
     Dropdown,
 } from 'antd';
 import { connect } from 'dva';
-import request from 'umi-request';
 
 class UpdateModal extends Component {
     constructor() {
@@ -203,7 +202,7 @@ class UpdateModal extends Component {
                                 type="primary"
                                 htmlType="submit"
                             >
-                                update
+                                Update
                             </Button>
                         </Form.Item>
                     </Form>

@@ -23,7 +23,7 @@ class UserDetails extends React.Component {
     constructor() {
         super();
         this.state = {
-            confirmDirty: false,
+            trialAccount: false,
         };
     }
     onClose = () => {
@@ -36,24 +36,42 @@ class UserDetails extends React.Component {
         }
     };
 
+    componentDidMount() {
+        if (
+            this.props.mountedData.description === 'trial' ||
+            this.props.mountedData.description === 'suspended'
+        ) {
+            this.setState({ trialAccount: true });
+        }
+    }
+
+    onChangeTrial = e => {
+        this.setState({ trialAccount: e.target.checked });
+    };
+
     handleSubmit = e => {
         e.preventDefault();
         this.props.form.validateFields((err, values) => {
-            console.log('values', values);
             if (!err) {
                 const { keys, names } = values;
+                values['id'] = this.props.mountedData.id;
+                values['name'] =
+                    values['name'] && values['name'] !== ''
+                        ? values['name']
+                        : this.props.mountedData.name;
+                values['email'] =
+                    values['email'] && values['email'] !== ''
+                        ? values['email']
+                        : this.props.mountedData.email;
+
+                values['trialAccount'] = this.state.trialAccount;
 
                 this.props.dispatch({
-                    type: 'users/create',
+                    type: 'users/updateUser',
                     payload: values,
                 });
             }
         });
-    };
-
-    handleConfirmBlur = e => {
-        const { value } = e.target;
-        this.setState({ confirmDirty: this.state.confirmDirty || !!value });
     };
 
     ValidateEmail(mail) {
@@ -69,13 +87,13 @@ class UserDetails extends React.Component {
     }
 
     render() {
+        console.log('this.props = ', this.props);
         const { getFieldDecorator } = this.props.form;
         return (
             <div
                 style={{
                     marginBottom: `0`,
                     backgroundColor: `#fff`,
-                    padding: `34px`,
                 }}
             >
                 <Form
@@ -113,13 +131,16 @@ class UserDetails extends React.Component {
                                                 'Please enter correct user name',
                                             pattern: /^[a-zA-Z]+([ -_.]?[a-zA-Z0-9]+)*$/,
                                         },
-                                        {
-                                            required: true,
-                                            message: 'Please enter user name',
-                                        },
                                     ],
                                 })(
-                                    <Input placeholder="Please enter user name" />
+                                    <Input
+                                        placeholder={
+                                            this.props.mountedData.name
+                                        }
+                                        defaultValue={
+                                            this.props.mountedData.name
+                                        }
+                                    />
                                 )}
                             </Form.Item>
                         </Col>
@@ -151,34 +172,53 @@ class UserDetails extends React.Component {
                                 {getFieldDecorator('email', {
                                     rules: [
                                         {
-                                            required: true,
-                                            message: 'Please enter email',
-                                        },
-                                        {
                                             type: 'email',
                                             message:
                                                 'The input is not valid E-mail!',
                                         },
                                     ],
                                     onChange: e => this.email(e),
-                                })(<Input placeholder="Please enter email" />)}
+                                })(
+                                    <Input
+                                        placeholder={
+                                            this.props.mountedData.email
+                                        }
+                                        defaultValue={
+                                            this.props.mountedData.email
+                                        }
+                                    />
+                                )}
                             </Form.Item>
                         </Col>
                     </Row>
                     <Row gutter={16}>
-                        <Col span={9}>
+                        <Col span={24}>
                             <Checkbox
-                                checked={this.state.checked}
-                                disabled={this.state.disabled}
-                                onChange={this.onChange}
+                                disabled={
+                                    this.props.mountedData.description !==
+                                        'trial' &&
+                                    this.props.mountedData.description !==
+                                        'suspended'
+                                }
+                                checked={this.state.trialAccount}
+                                onChange={this.onChangeTrial}
                             >
-                                Trial Account
+                                Trial Account{' '}
+                                {this.props.mountedData.description !==
+                                    'trial' &&
+                                this.props.mountedData.description !==
+                                    'suspended' ? (
+                                    <Typography style={{ color: '#06597F' }}>
+                                        Permanent User Cannot be convert into
+                                        Trial User
+                                    </Typography>
+                                ) : null}
                             </Checkbox>
                         </Col>
                     </Row>
                     <Button
                         style={{ marginTop: '30px' }}
-                        loading={this.props.creatingUser}
+                        loading={this.props.updatingUser}
                         type="primary"
                         htmlType="submit"
                     >
@@ -192,8 +232,7 @@ class UserDetails extends React.Component {
 
 export default connect(state => {
     return {
-        usersList: state.users,
-        projects: state.projects,
         fetchingUsers: state.loading.effects['users/update'],
+        updatingUser: state.loading.effects['users/updateUser'],
     };
 })(Form.create()(UserDetails));

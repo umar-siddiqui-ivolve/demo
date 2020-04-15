@@ -17,7 +17,6 @@ import {
 } from 'antd';
 import ReactDOM from 'react-dom';
 import { connect } from 'dva';
-import { request } from '@/utils/request';
 import { async } from 'q';
 
 const { Option } = Select;

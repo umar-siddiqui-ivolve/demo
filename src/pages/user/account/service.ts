@@ -13,7 +13,6 @@ export async function getFakeCaptcha(mobile: string) {
 }
 
 export async function openstackLogin(authData: OpenstackAuth) {
-    debugger;
     return await requestAuth(`${API_GATEWAY}/api/v1/auth/login`, {
         data: {
             ...authData,

@@ -174,7 +174,7 @@ class Fourth extends PureComponent {
                     </Col>
 
                     <Col style={{ marginTop: '10px' }}>
-                        <Button size="medium" onClick={this.showModal}>
+                        <Button size="medium" type='primary' onClick={this.showModal}>
                             Create Keypair
                         </Button>
                     </Col>

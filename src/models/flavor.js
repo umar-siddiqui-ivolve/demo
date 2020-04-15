@@ -1,7 +1,6 @@
 import * as FlavorServices from '../pages/service/compute/Flavors/services/flavor';
 import * as GenericService from '@/pages/service/services/generic_service';
 import { routerRedux } from 'dva/router';
-import request from 'umi-request';
 import { notification } from 'antd';
 
 export default {

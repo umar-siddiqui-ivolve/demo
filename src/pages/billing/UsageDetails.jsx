@@ -1,10 +1,8 @@
 import React, { PureComponent } from 'react';
-import { request } from '@/utils/request';
 import RDFTree from './components/RDFTree';
 import { DatePicker, Button, Table, Icon, Spin } from 'antd';
 const { MonthPicker } = DatePicker;
 import moment from 'moment';
-import { extend } from 'umi-request';
 import { connect } from 'dva';
 
 const errorHandler = error => {

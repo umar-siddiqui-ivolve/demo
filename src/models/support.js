@@ -1,6 +1,5 @@
 import * as GenericService from '@/pages/service/services/generic_service';
 import { notification } from 'antd';
-import request from 'umi-request';
 
 export default {
     namespace: 'support',

@@ -4,7 +4,6 @@ import 'antd/dist/antd.css';
 import { Input, Tooltip, Button, Icon, notification } from 'antd';
 import Tachyons from 'tachyons';
 import { connect } from 'dva';
-import request from 'umi-request';
 import { routerRedux } from 'dva/router';
 import { Link } from 'umi';
 
